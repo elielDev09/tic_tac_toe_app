@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  font-family: sans-serif;
+  background-color: #f9f9f9;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-container {
+  text-align: center;
+}
+
+.board-row {
+  display: flex;
+  text-align: center;
+  margin: a;
+}
+
+.square {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  border: 2px solid #555;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.square:hover {
+  background-color: #f0f0f0;
+}

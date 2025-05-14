@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -22,9 +23,12 @@ const StyleSquare = styled.button`
     }
 `
 
+type SquareProps = {
+    value: (string | null)
+    onSquareClick: () => void
+}
 
-
-function Square( {value, onSquareClick} ){
+function Square( {value, onSquareClick }: SquareProps ){
     return (
         <StyleSquare onClick={onSquareClick}>
             {value}
@@ -37,8 +41,14 @@ const StyleBoardRow = styled.div `
     text-align: center;
 `
 
-function Board({xIsNext,squares,onPlay}) {
-    function handleClick(i){
+type BoardProps = {
+    xIsNext: boolean
+    squares: (string | null)[]
+    onPlay: (nextSquares: (string | null)[]) => void
+}
+
+function Board({xIsNext,squares,onPlay}: BoardProps ) {
+    function handleClick(i: number){
         if (squares[i] || calculateWinner(squares)){
             return
         }
@@ -52,7 +62,7 @@ function Board({xIsNext,squares,onPlay}) {
     } 
 
     const winner = calculateWinner(squares)
-    let status
+    let status: string
     if (winner) {
         status = `Winner: ${winner}`
     } else {
@@ -82,25 +92,23 @@ function Board({xIsNext,squares,onPlay}) {
   }
 
   export default function Game(){
-    const [history,setHistory] = useState([Array(9).fill(null)])
-    const [currentMove,setCurrentMove] = useState(0)
-    const xIsNext = currentMove % 2 === 0
-    const currentSquares = history[currentMove]
+    const [history,setHistory] = useState<(string | null)[][]>([Array(9).fill(null)])
+    const [currentMove,setCurrentMove] = useState<number>(0)
+    const xIsNext: boolean = currentMove % 2 === 0
+    const currentSquares: (string | null)[] = history[currentMove]
 
-    function handlePlay(nextSquares) {
+    function handlePlay(nextSquares: (string | null)[]) {
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares]
         setHistory(nextHistory)
         setCurrentMove(nextHistory.length - 1)
-        setXisNext(!xIsNext)
     }
 
-    function jumpTo(nextMove){
+    function jumpTo(nextMove: number){
         setCurrentMove(nextMove)
-        setXisNext(nextMove % 2 === 0)
     }
 
     const moves = history.map((squares, move) => {
-        let description
+        let description: string
         if (move > 0) {
             description = `Go to move # ${move}`
         } else {
@@ -125,7 +133,7 @@ function Board({xIsNext,squares,onPlay}) {
     )
   }
 
-  function calculateWinner(squares) {
+  function calculateWinner(squares:(string | null)[]) {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],

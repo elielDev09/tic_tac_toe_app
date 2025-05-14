@@ -1,3 +1,4 @@
+import React from 'react';
 import Game from './Square';
 import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
